@@ -18,7 +18,8 @@ public class main {
             System.out.println("Exiting...");
             return;
         } else if (input == 1) {
-
+            game newGame = new game();
+            newGame.startGame();
         }
     }
     
