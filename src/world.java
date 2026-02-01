@@ -64,7 +64,7 @@ public class world {
     }
 
     public void attack(room[] dungeon, int pos, player newPlayer,  ArrayList<ArrayList<String>> inventory) {
-        int enemyHealth = 100;
+        int enemyHealth = (int) Math.random() * 50 + 50;
         int userAction;
         int attackChance, criticalChance;
 
@@ -175,5 +175,122 @@ public class world {
                 }
             }
         }
+    }
+
+    public void attackBoss(room[] dungeon, int pos, player newPlayer,  ArrayList<ArrayList<String>> inventory) {
+        int bossHealth = 150, damage = 30;
+        int userAction;
+        int attackChance, criticalChance;
+        while (true) {
+            if (bossHealth <= 0) {
+                System.out.println(
+                    "Your final strike lands.\n" +
+                    "The Warden staggers, cracks spreading across its stone flesh.\n" +
+                    "With a deafening roar, it collapses into rubble and ash.\n" +
+                    "The chamber falls silent.\n" +
+                    "You are still standing."
+                );
+
+                dungeon[pos].boss = false;
+                return;
+            } else if (newPlayer.health <= 0) {
+                System.out.println(
+                    "Your strength fades.\n" +
+                    "Your weapon falls from your grasp.\n" +
+                    "Cold stone meets your cheek.\n" +
+                    "Darkness closes in.\n" +
+                    "You are forgotten..."
+                );
+                System.exit(0);
+            }
+
+            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("Combat : 1 (Swing Sword) 2 (Use potion of Healing) 3 (Use potion of Strength) 4 (Check Status)");
+            System.out.println("------------------------------------------------------------------------------------------");
+            userAction = scnr.nextInt();
+            if (userAction == 1) {
+                attackChance = (int) (Math.random() * 100);
+                criticalChance = (int) (Math.random() * 100);
+
+                //player have 95% hit chance
+                if (attackChance > 4) {
+                    //50% crit
+                    if (criticalChance >= 49) {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("You seize an opening and drive your weapon forward.");
+                        System.out.println("Stone shatters.");
+                        System.out.println("A heavy chunk breaks free as the Warden reels.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        bossHealth -= newPlayer.damage * 1.3;
+                    } else {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("You slash at the Warden.");
+                        System.out.println("Steel scrapes stone, carving a deep crack.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        bossHealth -= newPlayer.damage;
+                    }
+
+                    if (bossHealth <= 0) {
+                        System.out.println(
+                            "Your final strike lands.\n" +
+                            "The Warden staggers, cracks spreading across its stone flesh.\n" +
+                            "With a deafening roar, it collapses into rubble and ash.\n" +
+                            "The chamber falls silent.\n" +
+                            "You are still standing."
+                        );
+
+                        dungeon[pos].boss = false;
+                        return;
+                    }
+                System.out.println("------------------------------------------------------------------------------------------");
+                System.out.print("The Warden's Health: ");
+                System.out.println(bossHealth);
+                System.out.println("------------------------------------------------------------------------------------------");
+                } else {
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    System.out.println("You swing too slow.");
+                    System.out.println("The Warden shifts aside.");
+                    System.out.println("Your blade sparks uselessly against the wall.");
+                    System.out.println("------------------------------------------------------------------------------------------");
+                }
+            } else if (userAction == 2) {
+                newPlayer.heal(inventory);
+            } else if (userAction == 3) {
+                newPlayer.strength(inventory);
+            } else if (userAction == 4) {
+                newPlayer.checkHealth();
+            }
+            
+            int bossAttack;
+            bossAttack = (int) (Math.random() * 100);
+            if (bossAttack > 59) {
+                    criticalChance = (int) (Math.random() * 100);
+                    // enemy ogor has 20% chance of critical hit on player
+                    if (criticalChance > 89) {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("The Warden roars and slams down with crushing force.");
+                        System.out.println("Bone-rattling impact.");
+                        System.out.println("You taste blood as the world spins.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        newPlayer.takeDamage(40);
+                        newPlayer.checkHealth();
+                    } else {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("The Warden swings its massive arm.");
+                        System.out.println("Stone smashes into you, knocking the breath from your lungs.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        newPlayer.takeDamage(20);
+                        newPlayer.checkHealth();
+                    }
+                    
+                } else {
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    System.out.println("The Warden swings its massive arm.");
+                    System.out.println("You roll aside as stone crashes into the floor.");
+                    System.out.println("Fragments scatter where you stood.");
+                    System.out.println("------------------------------------------------------------------------------------------");
+                }
+        }
+
     }
 }

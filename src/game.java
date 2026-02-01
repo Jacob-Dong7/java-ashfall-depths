@@ -37,6 +37,11 @@ public class game {
                 System.out.println("The air grows heavy.");
                 System.out.println("The exit is behind it.");
                 System.out.println("The Warden has awakened.");
+                
+                System.out.println("A grinding voice echoes through the chamber...");
+                System.out.println("\"" + newPlayer.name + "...\"");
+                System.out.println("\"Your name will be the next this place forgets...\"");
+
                 System.out.println("------------------------------------------------------------------------------------------");
             } else if (dungeon[playerPosition].enemyCount > 1) {
                 System.out.println("------------------------------------------------------------------------------------------");
@@ -53,6 +58,7 @@ public class game {
                 System.out.println("Everything seems clear...");
                 System.out.println("------------------------------------------------------------------------------------------");
             }
+
             checker = true;
         }
             System.out.println("------------------------------------------------------------------------------------------");
@@ -66,13 +72,49 @@ public class game {
                     System.out.println("------------------------------------------------------------------------------------------");
                     System.out.println("There are enemies around, you cannot proceed further...");
                     System.out.println("------------------------------------------------------------------------------------------");
+                } else if (playerPosition == dungeon.length - 1 && dungeon[playerPosition].boss == false){
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    System.out.println(
+                        "The Warden lies shattered behind you.\n" +
+                        "The gate stands open.\n" +
+                        "Cold air gives way to warm sunlight.\n" +
+                        "You step out of the ruins.\n" +
+                        "You survived."
+                    );
+                    System.out.println(
+                        "You leave the ruins behind.\n" +
+                        "Stone gives way to grass. Cold air turns warm.\n" +
+                        "Dawn breaks over the horizon.\n" +
+                        "\n" +
+                        "The dungeon grows silent, as if you were never there.\n" +
+                        "\n" +
+                        "But your name remains.\n" +
+                        newPlayer.name + ".\n" +
+                        "\n" +
+                        "You survived.\n" +
+                        "THE END."
+                    );
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    System.exit(0);
+                } else if (playerPosition == dungeon.length - 1 && dungeon[playerPosition].boss == true) {
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    System.out.println(
+                        "You step toward the gate.\n" +
+                        "The Warden drags its chains across the stone and blocks your path.\n" +
+                        "The ground trembles.\n" +
+                        "\"None leave alive.\""
+                    );
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    continue;
                 } else {
                     ++playerPosition;
                     checker = false;
                     continue;
                 }
             } else if (userAction == 2){
-                if (dungeon[playerPosition].enemyCount == 0) {
+                if (dungeon[playerPosition].boss == true) {
+                    newWorld.attackBoss(dungeon, playerPosition, newPlayer, inventory);
+                } else if (dungeon[playerPosition].enemyCount == 0) {
                     System.out.println("There are no enemies to attack...");
                     continue;
                 } else {

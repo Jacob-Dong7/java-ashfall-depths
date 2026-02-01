@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class player {
     private static final Scanner scnr = new Scanner(System.in);
     int health = 100;
-    int damage = 10;
+    int damage = 15;
+    String name;
 
     public String userName() {
-        String name;
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.println("Cold stone presses against your back as you wake.\nThe air is thick with fog and ash, biting at your lungs. Ruins loom around you—old, broken, and abandoned.");
         System.out.println("Your head throbs. Your past is gone. Whatever you were before, the world has already forgotten it.");
