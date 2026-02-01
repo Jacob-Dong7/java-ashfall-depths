@@ -37,11 +37,11 @@ public class player {
     public void inventory(ArrayList<ArrayList<String>> userInventory) {
         ArrayList<String> itemOne = new ArrayList<>();
         itemOne.add("Health Potion");
-        itemOne.add("2");
+        itemOne.add("4");
 
         ArrayList<String> itemTwo = new ArrayList<>();
         itemTwo.add("Strength Potion");
-        itemTwo.add("2");
+        itemTwo.add("3");
 
         userInventory.add(itemOne);
         userInventory.add(itemTwo);
@@ -50,8 +50,13 @@ public class player {
 
     public void checkInventory(ArrayList<ArrayList<String>> userInventory) {
         int userAction;
-        while (true) {
         System.out.println("------------------------------------------------------------------------------------------");
+        System.out.println(
+            "You kneel and open your pack.\n" +
+            "Supplies rattle softly inside.\n" +
+            "What do you check?"
+        );
+        while (true) {
         System.out.println("Inventory 1 (Use health potion) 2 (Use strength potion) -1 (Return):");
         for (int i = 0; i < userInventory.size(); ++i) {
                 System.out.print(userInventory.get(i).get(0));
@@ -87,6 +92,13 @@ public class player {
 }
 
     public void heal(ArrayList<ArrayList<String>> userInventory) {
+        if (health == 100) {
+            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("You raise the potion... then stop.");
+            System.out.println("You are already fully healed.");
+            System.out.println("------------------------------------------------------------------------------------------");
+            return;
+        }
         if (100 - health > 20) {
             health += 20;
         } else {
@@ -96,7 +108,13 @@ public class player {
         int newNum = Integer.parseInt(num) - 1;
         String finalNum = String.valueOf(newNum);
         userInventory.get(0).set(1, finalNum);
-
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.println(
+            "You drink the potion.\n" +
+            "Warmth spreads through your veins.\n" +
+            "Your wounds begin to close."
+        );
+        System.out.println("------------------------------------------------------------------------------------------");
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.print("Health: ");
         System.out.println(health);
@@ -107,10 +125,17 @@ public class player {
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.print("Health: ");
         System.out.println(health);
+        System.out.print("Strength: ");
+        System.out.println(damage);
         System.out.println("------------------------------------------------------------------------------------------");
     }
 
     public void strength(ArrayList<ArrayList<String>> userInventory) {
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.println("You drink the potion.");
+        System.out.println("Your muscles tighten.");
+        System.out.println("Power floods your body.");
+        System.out.println("------------------------------------------------------------------------------------------");
         String num = userInventory.get(1).get(1);
         int newNum = Integer.parseInt(num) - 1;
         String finalNum = String.valueOf(newNum);
