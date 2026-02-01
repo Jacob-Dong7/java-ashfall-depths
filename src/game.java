@@ -31,8 +31,21 @@ public class game {
             userAction = scnr.nextInt();
             if (userAction == -1) {
                 return;
+            } else if (userAction == 1) {
+                if (dungeon[playerPosition].enemyCount > 0) {
+                    System.out.println("There are enemies around, you cannot proceed further...");
+                } else {
+                    ++playerPosition;
+                    continue;
+                }
+            } else if (userAction == 2){
+                continue;
+            } else if (userAction == 3) {
+                newWorld.searchItem(dungeon, playerPosition, inventory);
             } else if (userAction == 4) {
                 newPlayer.checkInventory(inventory);
+            } else if (userAction == 5) {
+                newPlayer.checkHealth();
             }
         }
     }

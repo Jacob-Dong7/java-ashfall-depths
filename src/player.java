@@ -91,5 +91,10 @@ public class player {
         System.out.println(health);
     }
 
+    public void checkHealth() {
+        System.out.print("Health: ");
+        System.out.println(health);
+    }
+
 
 }

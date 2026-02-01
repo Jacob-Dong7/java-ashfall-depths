@@ -14,4 +14,36 @@ public class world {
         };
         return dungeon;
     }
+
+    public void searchItem(room[] dungeon, int pos, ArrayList<ArrayList<String>> inventory) {
+        String currentAmount, newAmountString;
+        int newAmount;
+        if (dungeon[pos].heal == true && dungeon[pos].strength == true) {
+            System.out.println("You found a potion of healing");
+            System.out.println("You found a potion of strength");
+            currentAmount = inventory.get(0).get(1);
+            newAmount = Integer.parseInt(currentAmount) + 1;
+            newAmountString = String.valueOf(newAmount);
+            inventory.get(0).set(1, newAmountString);
+
+            currentAmount = inventory.get(1).get(1);
+            newAmount = Integer.parseInt(currentAmount) + 1;
+            newAmountString = String.valueOf(newAmount);
+            inventory.get(1).set(1, newAmountString);
+        } else if (dungeon[pos].heal == true && dungeon[pos].strength == false) {
+            System.out.println("You found a potion of healing");
+            currentAmount = inventory.get(0).get(1);
+            newAmount = Integer.parseInt(currentAmount) + 1;
+            newAmountString = String.valueOf(newAmount);
+            inventory.get(0).set(1, newAmountString);
+        } else if (dungeon[pos].heal == false && dungeon[pos].strength == true) {
+            System.out.println("You found a potion of strength");
+            currentAmount = inventory.get(1).get(1);
+            newAmount = Integer.parseInt(currentAmount) + 1;
+            newAmountString = String.valueOf(newAmount);
+            inventory.get(1).set(1, newAmountString);
+        } else {
+            System.out.println("You found nothing");
+        }
+    }
 }
