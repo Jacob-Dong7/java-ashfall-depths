@@ -1,56 +1,87 @@
 <h1 align="center">🗝️ Ashfall Depths</h1>
 
 <p align="center">
-A text-based dungeon RPG focused on exploration, survival, and tactical combat.  
+A dark, text-based dungeon crawler focused on survival, scarce supplies, and brutal turn-based combat.
 </p>
 
 <hr/>
 
 <h2>🧭 Premise</h2>
 <p>
-You awaken in a collapsed shelter at the edge of the Ashfall Depths.  
-Somewhere below lies the <b>Ember Sigil</b>, a relic rumored to unlock the sealed exit tunnels.
+You wake on cold stone with no memory of how you arrived.
+Ash hangs thick in the air. Ruins stretch endlessly below.
 </p>
 
 <p>
-To survive, you must explore interconnected chambers, defeat enemies guarding vital paths, and manage your health and inventory carefully.
+The only way out lies deep within the Ashfall Depths — past collapsed corridors, forgotten shrines, and things that still move in the dark.
 </p>
 
 <p>
-Your goal is simple:
+Somewhere below, an ancient guardian known only as <b>The Warden</b> blocks the final gate.
+</p>
+
+<p>
+If you want to see daylight again… you must descend.
+</p>
+
+<hr/>
+
+<h2>🎯 Objective</h2>
 <ul>
-  <li>🔑 Locate the Ember Sigil</li>
-  <li>🚪 Reach the Sealed Exit</li>
-  <li>⚔️ Survive the descent</li>
+  <li>🧭 Explore the dungeon room by room</li>
+  <li>🧪 Scavenge healing and strength potions</li>
+  <li>⚔️ Defeat ogres and hostile creatures</li>
+  <li>🗿 Slay the Warden guarding the exit</li>
+  <li>🚪 Escape alive</li>
 </ul>
-</p>
 
 <hr/>
 
 <h2>📄 Core Gameplay</h2>
 <ul>
-  <li>🧱 Navigate a fixed dungeon of interconnected rooms (N / S / E / W)</li>
-  <li>👀 Examine rooms to discover items, enemies, and exits</li>
-  <li>🎒 Collect and manage inventory items</li>
-  <li>⚔️ Engage in turn-based combat</li>
-  <li>❤️ Use healing items to recover health</li>
+  <li>🧱 Fixed dungeon built with room arrays</li>
+  <li>📖 Immersive, atmospheric room descriptions</li>
+  <li>🎒 Inventory management (potions & supplies)</li>
+  <li>⚔️ Turn-based combat with hit, crit, and miss mechanics</li>
+  <li>🎲 Randomized attack chances and damage</li>
+  <li>🧟 Multiple enemies per room</li>
+  <li>🗝️ Exit locked until the boss is defeated</li>
+</ul>
+
+<hr/>
+
+<h2>⚔️ Combat Features</h2>
+<ul>
+  <li>Sword attacks with critical strikes</li>
+  <li>Healing potions to recover health</li>
+  <li>Strength potions to boost damage</li>
+  <li>Enemy and boss special attacks</li>
+  <li>Brutal, gritty combat text</li>
 </ul>
 
 <hr/>
 
 <h2>🏁 Win & Lose Conditions</h2>
 <ul>
-  <li><b>Win:</b> Escape through the Sealed Exit while carrying the Ember Sigil</li>
-  <li><b>Lose:</b> Player health reaches zero</li>
+  <li><b>Win:</b> Defeat the Warden and escape through the Sun Gate</li>
+  <li><b>Lose:</b> Your health reaches zero and you are forgotten by the depths</li>
 </ul>
 
 <hr/>
 
 <h2>🛠️ Technical Scope</h2>
 <ul>
-  <li>Console-based Java application</li>
-  <li>Menu / command-based input system</li>
+  <li>Pure Java (console application)</li>
+  <li>Array-based dungeon system</li>
+  <li>ArrayList inventory management</li>
+  <li>Scanner input loop</li>
+  <li>Object-oriented design (Room, Player, World, Combat)</li>
 </ul>
 
 <hr/>
+
+<p align="center">
+<b>Enter the depths. Survive… or be forgotten.</b>
+</p>
+
 
