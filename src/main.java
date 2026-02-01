@@ -20,7 +20,9 @@ public class main {
         input = scnr.nextInt();
 
         if (input == -1) {
+            System.out.println("------------------------------------------------------------------------------------------");
             System.out.println("Exiting...");
+            System.out.println("------------------------------------------------------------------------------------------");
             return;
         } else if (input == 1) {
             game newGame = new game();

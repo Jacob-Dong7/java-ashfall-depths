@@ -1,6 +1,9 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Random;
+
 public class world {
-    
+    private static final Scanner scnr = new Scanner(System.in);
     public room[] setWorld() {
         room[] dungeon = new room[] {
             new room("Broken Stairs", "You stand at the top of a crumbling stone staircase. \nSeveral steps have collapsed into darkness below. \nCold air rises from the depths, brushing your skin like icy fingers. Each step down looks unstable.", 0, 0, false, false, true, false ),
@@ -19,8 +22,10 @@ public class world {
         String currentAmount, newAmountString;
         int newAmount;
         if (dungeon[pos].heal == true && dungeon[pos].strength == true) {
+            System.out.println("------------------------------------------------------------------------------------------");
             System.out.println("You found a potion of healing");
             System.out.println("You found a potion of strength");
+            System.out.println("------------------------------------------------------------------------------------------");
             currentAmount = inventory.get(0).get(1);
             newAmount = Integer.parseInt(currentAmount) + 1;
             newAmountString = String.valueOf(newAmount);
@@ -30,20 +35,135 @@ public class world {
             newAmount = Integer.parseInt(currentAmount) + 1;
             newAmountString = String.valueOf(newAmount);
             inventory.get(1).set(1, newAmountString);
+
+            dungeon[pos].heal = false;
+            dungeon[pos].strength = false;
         } else if (dungeon[pos].heal == true && dungeon[pos].strength == false) {
+            System.out.println("------------------------------------------------------------------------------------------");
             System.out.println("You found a potion of healing");
+            System.out.println("------------------------------------------------------------------------------------------");
             currentAmount = inventory.get(0).get(1);
             newAmount = Integer.parseInt(currentAmount) + 1;
             newAmountString = String.valueOf(newAmount);
             inventory.get(0).set(1, newAmountString);
+            dungeon[pos].heal = false;
         } else if (dungeon[pos].heal == false && dungeon[pos].strength == true) {
+            System.out.println("------------------------------------------------------------------------------------------");
             System.out.println("You found a potion of strength");
+            System.out.println("------------------------------------------------------------------------------------------");
             currentAmount = inventory.get(1).get(1);
             newAmount = Integer.parseInt(currentAmount) + 1;
             newAmountString = String.valueOf(newAmount);
             inventory.get(1).set(1, newAmountString);
+            dungeon[pos].strength = false;
         } else {
-            System.out.println("You found nothing");
+            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("You found nothing...");
+            System.out.println("------------------------------------------------------------------------------------------");
+        }
+    }
+
+    public void attack(room[] dungeon, int pos, player newPlayer,  ArrayList<ArrayList<String>> inventory) {
+        int enemyHealth = 100;
+        int userAction;
+        int attackChance, criticalChance;
+
+        while (true) {
+            if (enemyHealth <= 0) {
+                System.out.println("You have slained an enemy");
+                dungeon[pos].enemyCount -= 1;
+                return;
+            } else if (newPlayer.health <= 0) {
+                System.out.println(
+                    "Your strength fades.\n" +
+                    "Your weapon falls from your grasp.\n" +
+                    "Cold stone meets your cheek.\n" +
+                    "Darkness closes in.\n" +
+                    "You are forgotten..."
+                );
+                System.exit(0);
+            }
+
+            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("Combat : 1 (Swing Sword) 2 (Use potion of Healing) 3 (Use potion of Strength) 4 (Check Status)");
+            System.out.println("------------------------------------------------------------------------------------------");
+            userAction = scnr.nextInt();
+            if (userAction == 1) {
+                attackChance = (int) (Math.random() * 10);
+                criticalChance = (int) (Math.random() * 10);
+
+                //player have 80% hit chance
+                if (attackChance > 1) {
+                    if (criticalChance >= 7) {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("You lunge forward with everything you have.");
+                        System.out.println("Your blade sinks deep.");
+                        System.out.println("The ogre howls in pain.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        enemyHealth -= newPlayer.damage * 1.2;
+                    } else {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("You strike the ogre.");
+                        System.out.println("Steel bites into flesh.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        enemyHealth -= newPlayer.damage;
+                    }
+
+                    if (enemyHealth <= 0) {
+                        System.out.println("Steel tears through flesh.");
+                        System.out.println("A wet crunch..");
+                        System.out.println("The ogre collapses in a heap of blood.");
+                        dungeon[pos].enemyCount -= 1;
+                        return;
+                    }
+                System.out.println("------------------------------------------------------------------------------------------");
+                System.out.print("Ogor Health: ");
+                System.out.println(enemyHealth);
+                System.out.println("------------------------------------------------------------------------------------------");
+                } else {
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    System.out.println("You swing — too slow.");
+                    System.out.println("The ogre steps aside.");
+                    System.out.println("Your attack cuts only air.");
+                    System.out.println("------------------------------------------------------------------------------------------");
+                }
+            } else if (userAction == 2) {
+                newPlayer.heal(inventory);
+            } else if (userAction == 3) {
+                newPlayer.strength(inventory);
+            } else if (userAction == 4) {
+                newPlayer.checkHealth();
+            }
+
+            for (int i = 0; i < dungeon[pos].enemyCount; ++i) {
+                attackChance = (int) (Math.random() * 10);
+                //ogor has 60% chance of landing  a hit
+                if (attackChance > 3) {
+                    criticalChance = (int) (Math.random() * 10);
+                    // enemy ogor has 20% chance of critical hit on player
+                    if (criticalChance >= 8) {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("The ogre roars and swings with brutal force.");
+                        System.out.println("The impact crushes the air from your lungs.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        newPlayer.takeDamage(40);
+                        newPlayer.checkHealth();
+                    } else {
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        System.out.println("The ogre's club slams into you.");
+                        System.out.println("Pain shoots through your ribs.");
+                        System.out.println("------------------------------------------------------------------------------------------");
+                        newPlayer.takeDamage(10);
+                        newPlayer.checkHealth();
+                    }
+                    
+                } else {
+                    System.out.println("------------------------------------------------------------------------------------------");
+                    System.out.println("The ogre swings wildly.");
+                    System.out.println("You duck as the club smashes stone instead.");
+                    System.out.println("------------------------------------------------------------------------------------------");
+                }
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class player {
     private static final Scanner scnr = new Scanner(System.in);
     int health = 100;
+    int damage = 10;
 
     public String userName() {
         String name;
@@ -67,10 +68,19 @@ public class player {
             if (Integer.parseInt(userInventory.get(0).get(1)) > 0) {
                 heal(userInventory);
             } else {
+                System.out.println("------------------------------------------------------------------------------------------");
                 System.out.println("You are out of healing potions");
+                System.out.println("------------------------------------------------------------------------------------------");
             }
+
         } else if (userAction == 2) {
-            
+                if (Integer.parseInt(userInventory.get(1).get(1)) > 0) {
+                strength(userInventory);
+            } else {
+                System.out.println("------------------------------------------------------------------------------------------");
+                System.out.println("You are out of strength potions");
+                System.out.println("------------------------------------------------------------------------------------------");
+            }
         }
     }
 
@@ -87,13 +97,34 @@ public class player {
         String finalNum = String.valueOf(newNum);
         userInventory.get(0).set(1, finalNum);
 
+        System.out.println("------------------------------------------------------------------------------------------");
         System.out.print("Health: ");
         System.out.println(health);
+        System.out.println("------------------------------------------------------------------------------------------");
     }
 
     public void checkHealth() {
+        System.out.println("------------------------------------------------------------------------------------------");
         System.out.print("Health: ");
         System.out.println(health);
+        System.out.println("------------------------------------------------------------------------------------------");
+    }
+
+    public void strength(ArrayList<ArrayList<String>> userInventory) {
+        String num = userInventory.get(1).get(1);
+        int newNum = Integer.parseInt(num) - 1;
+        String finalNum = String.valueOf(newNum);
+        userInventory.get(1).set(1, finalNum);
+
+        damage += 5;
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.print("Strength: ");
+        System.out.println(damage);
+        System.out.println("------------------------------------------------------------------------------------------");
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
     }
 
 
